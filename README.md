@@ -89,7 +89,14 @@ module.exports = withTM({});
 
 - please declare `withTM` as your last plugin (the outermost one).
 - ~~make sure all your packages have [a valid `main` field](https://docs.npmjs.com/cli/v6/configuring-npm/package-json#main).~~ (not needed anymore since `7.1.0`)
-- there is currently no way to transpile only parts of a package, it's all or nothing
+- importing a package will transpile/bundle the whole package, increasing bundle size, unless your import references a specific module: 
+
+```js
+import Button from 'shared-ui/components/Button'; // imports only the Button
+import { Button } from 'shared-ui'; // imports all of shared-ui, increasing bundle size
+```
+
+There is an experimental Next.js feature [modularize imports](https://nextjs.org/docs/advanced-features/compiler#modularize-imports) that could help you retain the destructured import syntax while reducing bundle size
 
 ### Scoped packages
 
